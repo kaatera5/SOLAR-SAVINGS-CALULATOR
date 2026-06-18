@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SolarSavings - Estimate Your Solar Potential</title>
+    <meta name="description"
+        content="Calculate your solar savings in 30 seconds. Estimate installation cost, government subsidy, and lifetime savings for your home in India.">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <header class="glass-nav">
+        <div class="container nav-content">
+            <div class="logo">Solar<span>Savings</span></div>
+            <nav>
+                <a href="#home" class="nav-link">Home</a>
+                <a href="#about" class="nav-link">About</a>
+                <a href="#calculator" class="nav-link">Calculator</a>
+                <a href="#roof-area" class="nav-link">Calculate Roof Area</a>
+                <a href="#benefits" class="nav-link">Benefits</a>
+                <a href="#faq" class="nav-link">FAQ</a>
+            </nav>
+        </div>
+    </header>
+
+    <section id="home" class="hero">
+        <div class="hero-bg">
+            <img src="solar_rooftop_hero.png" alt="Solar Rooftop">
+            <div class="overlay"></div>
+        </div>
+        <div class="container hero-content">
+            <h1 class="animate-up">Calculate Your Solar Savings in 30 Seconds</h1>
+            <p class="animate-up-delay-1">Find out how much money you can save by installing solar panels on your home
+                in India. Professional estimates including government subsidies.</p>
+            <div class="hero-btns animate-up-delay-2">
+                <a href="#calculator" class="btn btn-large btn-primary">Calculate Savings</a>
+                <button class="btn btn-large btn-outline consultation-btn">Free Consultation</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="about-section">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2>About SolarSavings</h2>
+                <p>SolarSavings helps homeowners estimate the cost and savings of installing solar panels. Our calculator provides quick estimates based on your electricity usage, roof size, and government subsidy programs in India.</p>
+            </div>
+            <div class="about-grid">
+                <div class="about-card glass-card">
+                    <div class="about-icon"><i class="fas fa-calculator"></i></div>
+                    <h3>Accurate Solar Savings Estimation</h3>
+                    <p>Get a precise estimate of your potential solar savings based on your actual usage.</p>
+                </div>
+                <div class="about-card glass-card">
+                    <div class="about-icon"><i class="fas fa-hand-holding-dollar"></i></div>
+                    <h3>Government Subsidy Calculation</h3>
+                    <p>Automatically calculate your eligible Indian government subsidy for rooftop solar.</p>
+                </div>
+                <div class="about-card glass-card">
+                    <div class="about-icon"><i class="fas fa-chart-line"></i></div>
+                    <h3>Long-Term Savings Projection</h3>
+                    <p>Visualize your cumulative savings over 25 years with an interactive chart.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="calculator" class="calculator-section">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2>Solar Savings Calculator</h2>
+                <p>Enter your details below for a comprehensive estimate.</p>
+            </div>
+
+            <div class="calculator-container">
+                <div class="calculator-card glass-card animate-left">
+                    <form id="solar-form" novalidate>
+                        <div class="form-group">
+                            <label for="location">Location (City/State)</label>
+                            <input type="text" id="location" placeholder="e.g. Bangalore, Karnataka" required>
+                            
+
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="bill">Monthly Bill (₹)</label>
+                                <input type="number" id="bill" min="1000" max="100000" placeholder="Enter monthly bill (₹)" required>
+                                <span class="input-hint">₹1,000 - ₹1,00,000</span>
+                                <div id="bill-error" class="error-message hidden">Please enter a monthly electricity
+                                    bill between ₹100 and ₹1,00,000.</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="rate">Electricity Rate (₹/unit)</label>
+                                <input type="number" id="rate" min="6" max="15" step="0.1" placeholder="Enter electricity rate (₹ per unit)" required>
+                                <span class="input-hint">Standard: ₹8</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="area">Roof Area (sq. ft.)</label>
+                            <input type="number" id="area" min="500" max="5000" placeholder="Enter roof area in sq ft" required>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="roof-type">Roof Type</label>
+                                <select id="roof-type">
+                                    <option value="concrete">Concrete Roof</option>
+                                    <option value="metal">Metal Roof</option>
+                                    <option value="ground">Ground Mount</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="system-type">System Type</label>
+                                <select id="system-type">
+                                    <option value="on-grid">On-grid</option>
+                                    <option value="off-grid">Off-grid</option>
+                                    <option value="hybrid">Hybrid</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div id="form-error" class="error-message hidden text-center mb-4">Please fill all required fields before calculating.</div>
+                        <button type="submit" class="btn btn-block btn-primary">Calculate My Savings</button>
+                    </form>
+                </div> <!-- end calculator-card -->
+
+                <div id="results" class="results-container animate-right hidden">
+                    <div class="results-grid">
+                        <div class="result-card glass-card">
+                            <div class="icon"><i class="fas fa-solar-panel"></i></div>
+                            <h3>System Size</h3>
+                            <p class="value" id="res-size">-- kW</p>
+                        </div>
+                        <div class="result-card glass-card">
+                            <div class="icon"><i class="fas fa-indian-rupee-sign"></i></div>
+                            <h3>Final Cost</h3>
+                            <p class="value" id="res-cost">--</p>
+                            <p class="sub-value" id="res-subsidy">Subsidy: --</p>
+                        </div>
+                        <div class="result-card glass-card highlighted">
+                            <div class="icon"><i class="fas fa-chart-line"></i></div>
+                            <h3>monthly Savings</h3>
+                            <p class="value" id="res-annual">--</p>
+                            <p class="sub-value">Payback: <span id="res-payback">--</span> monthly</p>
+                        </div>
+                        <div class="result-card glass-card">
+                            <div class="icon"><i class="fas fa-piggy-bank"></i></div>
+                            <h3>Lifetime Savings</h3>
+                            <p class="value" id="res-lifetime">--</p>
+                            <p class="sub-value">After 25 months</p>
+                        </div>
+                    </div>
+                </div>
+            </div> <!-- end calculator-container -->
+
+            <div id="impact-result" class="impact-section animate-up hidden">
+                <div class="impact-card glass-card">
+                    <h3>Environmental Impact</h3>
+                    <div class="impact-stats">
+                        <div class="stat">
+                            <i class="fas fa-leaf"></i>
+                            <p id="res-co2">-- Tons CO₂ saved/yr</p>
+                        </div>
+                        <div class="stat">
+                            <i class="fas fa-tree"></i>
+                            <p id="res-trees">-- Trees planted equiv.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="bill-comparison-result" class="bill-comparison animate-up hidden">
+                <div class="text-center" style="margin-bottom: 2rem;">
+                    <h2 style="font-size: 2rem; margin-bottom: 0.5rem; color: var(--dark);">Electricity Bill Comparison</h2>
+                    <p style="color: var(--text-muted);">See how much you can save on your electricity bills after installing solar panels.</p>
+                </div>
+                <div class="comparison-grid-cards">
+                    <div class="compare-card glass-card">
+                        <div class="compare-icon"><i class="fas fa-plug"></i></div>
+                        <h3>Without Solar</h3>
+                        <p class="compare-price" id="res-bill-before">₹-- <span style="font-size: 1rem; font-weight: normal; opacity: 0.7;">/month</span></p>
+                        <ul class="compare-list">
+                            <li><i class="fas fa-times-circle" style="color: #ef4444;"></i> Depends completely on grid electricity</li>
+                            <li><i class="fas fa-arrow-trend-up" style="color: #ef4444;"></i> Electricity bills increase every year</li>
+                        </ul>
+                    </div>
+                    <div class="compare-card glass-card highlighted-green">
+                        <div class="savings-badge">Save up to 80% on electricity bills</div>
+                        <div class="compare-icon text-white"><i class="fas fa-solar-panel"></i></div>
+                        <h3 class="text-white">With Solar</h3>
+                        <p class="compare-price text-white" id="res-bill-after">₹-- <span style="font-size: 1rem; font-weight: normal; opacity: 0.9;">/month</span></p>
+                        <ul class="compare-list text-white">
+                            <li><i class="fas fa-check-circle"></i> Solar panels generate your own electricity</li>
+                            <li><i class="fas fa-piggy-bank"></i> Huge long-term savings</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Roof Area Estimator -->
+            <section id="roof-area" class="roof-estimator-wrapper mt-4 pt-4" style="border-top: 1px solid #e2e8f0; margin-top: 4rem; padding-top: 4rem;">
+                <div class="section-header text-center" style="margin-bottom: 2rem;">
+                    <h2>Calculate Your Roof Area</h2>
+                    <p>Enter the length and width of your roof to estimate the total roof area available for solar panel installation.</p>
+                </div>
+                
+                <div class="roof-card glass-card" style="max-width: 600px; margin: 0 auto; padding: 2.5rem;">
+                    <form id="roof-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="roof-length">Length (in feet)</label>
+                                <input type="number" id="roof-length" placeholder="e.g. 20" required min="1">
+                            </div>
+                            <div class="form-group">
+                                <label for="roof-width">Width (in feet)</label>
+                                <input type="number" id="roof-width" placeholder="e.g. 15" required min="1">
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-block btn-primary mt-2">Calculate Roof Area</button>
+                    </form>
+                    
+                    <div id="roof-result-container" class="hidden mt-4 text-center">
+                        <div class="highlighted-green" style="padding: 1.5rem; border-radius: 12px; margin-bottom: 1.5rem; margin-top: 1.5rem;">
+                            <div class="text-white" style="font-size: 2rem; margin-bottom: 0.5rem;"><i class="fas fa-house-chimney"></i></div>
+                            <h3 class="text-white" style="font-size: 1.1rem; margin-bottom: 0.5rem; opacity: 0.9;">Estimated Roof Area</h3>
+                            <p class="text-white" style="font-size: 2.5rem; font-weight: 800;"><span id="calc-roof-area">0</span> <span style="font-size: 1.2rem; opacity: 0.9; font-weight: normal;">sq ft</span></p>
+                        </div>
+                        <div style="background: rgba(16, 185, 129, 0.1); padding: 1rem; border-radius: 10px; border: 1px solid rgba(16, 185, 129, 0.2);">
+                            <p style="font-size: 1.05rem; font-weight: 500; color: var(--dark); margin: 0;">
+                                <i class="fas fa-solar-panel" style="color: var(--primary); margin-right: 0.5rem;"></i>
+                                Your roof can support approximately <strong id="calc-roof-kw" style="color: var(--primary); font-size: 1.2rem;">0</strong> kW solar system.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </section>
+
+    <section id="detailed-analysis" class="detailed-analysis section-padding hidden">
+        <div class="container">
+            <div id="results-detailed" class="results-detailed mt-4">
+                <div class="savings-projection-v2">
+                    <div class="savings-info animate-left">
+                        <h2>Your Long-Term Solar Savings</h2>
+                        <p>Solar panels generate electricity for more than 25 years. This chart shows how your savings
+                            grow every year after installing solar panels.</p>
+                        <ul class="check-list">
+                            <li><i class="fas fa-check-circle"></i> Stable electricity cost</li>
+                            <li><i class="fas fa-check-circle"></i> Increasing yearly savings</li>
+                            <li><i class="fas fa-check-circle"></i> Long-term financial benefits</li>
+                        </ul>
+                    </div>
+                    <div class="savings-visual animate-right">
+                        <div class="chart-wrapper glass-card">
+                            <h3>25-Year Savings Projection</h3>
+                            <canvas id="savingsChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="emi-highlight animate-up">
+                    <div class="emi-card-v2 glass-card text-center">
+                        <h2>Solar EMI Option</h2>
+                        <p class="mt-2 text-muted">Start your solar journey for as low as:</p>
+                        <div class="emi-value-container">
+                            <span class="value" id="res-emi">₹-- /month</span>
+                        </div>
+                        <p class="emi-subtitle mt-2">Estimated for 60 months tenure.</p>
+                        <button class="btn btn-primary mt-4">Check EMI Options</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="benefits" class="benefits-section">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2>Benefits of Installing Solar Energy</h2>
+                <p>Switching to solar is one of the smartest financial and environmental decisions you can make.</p>
+            </div>
+
+            <div class="benefits-grid">
+                <div class="benefit-card glass-card">
+                    <div class="benefit-icon"><i class="fas fa-file-invoice-dollar"></i></div>
+                    <h3>Lower Electricity Bills</h3>
+                    <p>Installing solar panels can reduce your electricity bills by up to 80%.</p>
+                </div>
+
+                <div class="benefit-card glass-card">
+                    <div class="benefit-icon"><i class="fas fa-hand-holding-hand"></i></div>
+                    <h3>Government Subsidy</h3>
+                    <p>Indian government provides subsidies for rooftop solar systems.</p>
+                </div>
+
+                <div class="benefit-card glass-card">
+                    <div class="benefit-icon"><i class="fas fa-earth-asia"></i></div>
+                    <h3>Environment Friendly</h3>
+                    <p>Solar energy reduces carbon emissions and helps protect the environment.</p>
+                </div>
+
+                <div class="benefit-card glass-card">
+                    <div class="benefit-icon"><i class="fas fa-plug-circle-bolt"></i></div>
+                    <h3>Energy Independence</h3>
+                    <p>Generate your own electricity and reduce dependence on the power grid.</p>
+                </div>
+
+                <div class="benefit-card glass-card">
+                    <div class="benefit-icon"><i class="fas fa-house-chimney-medical"></i></div>
+                    <h3>Increase Property Value</h3>
+                    <p>Homes with solar panels often have higher resale value.</p>
+                </div>
+
+                <div class="benefit-card glass-card">
+                    <div class="benefit-icon"><i class="fas fa-tools"></i></div>
+                    <h3>Low Maintenance Cost</h3>
+                    <p>Solar systems require very little maintenance after installation.</p>
+                </div>
+
+                <div class="benefit-card glass-card">
+                    <div class="benefit-icon"><i class="fas fa-shield-halved"></i></div>
+                    <h3>Protection From Rising Prices</h3>
+                    <p>Solar helps you avoid future electricity tariff increases.</p>
+                </div>
+
+                <div class="benefit-card glass-card">
+                    <div class="benefit-icon"><i class="fas fa-sun"></i></div>
+                    <h3>Clean Renewable Energy</h3>
+                    <p>Solar power is a renewable and sustainable energy source.</p>
+                </div>
+
+                <div class="benefit-card glass-card">
+                    <div class="benefit-icon"><i class="fas fa-chart-line"></i></div>
+                    <h3>Fast Return on Investment</h3>
+                    <p>Most solar systems recover their cost within 4–6 years.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section id="faq" class="faq-section">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2>Frequently Asked Questions</h2>
+                <p>Everything you need to know about solar savings and our calculator.</p>
+            </div>
+            <div class="faq-list">
+
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false">
+                        <span>How does the solar savings calculator work?</span>
+                        <i class="fas fa-chevron-down faq-icon"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>The calculator estimates your solar system size, installation cost, government subsidy, and long-term savings based on your monthly electricity bill, roof area, and electricity rate.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false">
+                        <span>How much money can I save with solar panels?</span>
+                        <i class="fas fa-chevron-down faq-icon"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Most homeowners can reduce their electricity bills by up to 70–90%. The exact savings depend on your electricity usage and solar system size.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false">
+                        <span>What is the lifespan of solar panels?</span>
+                        <i class="fas fa-chevron-down faq-icon"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Solar panels typically last 25 years or more with minimal maintenance while continuing to produce electricity efficiently.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false">
+                        <span>Is there a government subsidy for solar in India?</span>
+                        <i class="fas fa-chevron-down faq-icon"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Yes. The Indian government provides subsidies for rooftop solar systems. Systems between 1–3 kW may receive up to 40% subsidy, and 3–10 kW systems may receive about 20%.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false">
+                        <span>How long does it take to recover the solar investment?</span>
+                        <i class="fas fa-chevron-down faq-icon"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Most solar systems recover their cost within 4–6 years through electricity savings.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false">
+                        <span>Do solar panels work during cloudy days?</span>
+                        <i class="fas fa-chevron-down faq-icon"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Yes. Solar panels still generate electricity during cloudy weather, but production may be lower compared to sunny days.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false">
+                        <span>Can I install solar panels on any roof?</span>
+                        <i class="fas fa-chevron-down faq-icon"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Most roofs such as concrete, metal, or flat roofs are suitable for solar panel installation.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="process" class="process-section">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2>Solar Installation Process</h2>
+                <p>From consultation to activation, installing solar panels is quick and easy.</p>
+            </div>
+            <div class="process-grid">
+                <div class="process-step">
+                    <div class="step-number">1</div>
+                    <div class="step-icon"><i class="fas fa-headset"></i></div>
+                    <h3>Submit Consultation Request</h3>
+                    <p>User fills the consultation form to request solar installation information.</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">2</div>
+                    <div class="step-icon"><i class="fas fa-home"></i></div>
+                    <h3>Roof Inspection</h3>
+                    <p>A solar expert inspects the rooftop to check space and sunlight availability.</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">3</div>
+                    <div class="step-icon"><i class="fas fa-pencil-ruler"></i></div>
+                    <h3>Solar System Design</h3>
+                    <p>Engineers design a solar system based on the user’s electricity consumption and roof size.</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">4</div>
+                    <div class="step-icon"><i class="fas fa-tools"></i></div>
+                    <h3>Installation</h3>
+                    <p>Solar panels and equipment are installed on the rooftop by trained technicians.</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">5</div>
+                    <div class="step-icon"><i class="fas fa-bolt"></i></div>
+                    <h3>System Activation</h3>
+                    <p>The solar system is connected and starts generating electricity.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+
+        <div class="container text-center glass-card">
+            <h2>Ready to switch to Solar?</h2>
+            <p>Join thousands of homeowners in India saving on electricity bills.</p>
+            <div class="cta-btns">
+                <button class="btn btn-large btn-primary">Request Quote</button>
+                <button class="btn btn-large btn-whatsapp"><i class="fab fa-whatsapp"></i> WhatsApp Us</button>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo logo">Solar<span>Savings</span></div>
+                <div class="footer-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Contact</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 SolarSavings India. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Booking Modal -->
+    <div id="booking-modal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="close-modal"><i class="fas fa-times"></i></button>
+            <div id="booking-form-container">
+                <div class="section-header text-center" style="margin-bottom: 2rem;">
+                    <h2 style="font-size: 2rem;">Book a Call with a Solar Expert</h2>
+                    <p style="color: var(--text-muted); font-size: 1rem; margin-top: 0.5rem;">Schedule a free consultation with our solar expert to discuss solar installation, savings, and government subsidy options.</p>
+                </div>
+                <form id="booking-form">
+                    <div class="form-group">
+                        <label for="booking-name">Full Name</label>
+                        <input type="text" id="booking-name" placeholder="Enter your full name" required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="booking-phone">Phone Number</label>
+                            <input type="number" id="booking-phone" placeholder="Enter your phone number" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="booking-email">Email Address</label>
+                            <input type="email" id="booking-email" placeholder="Enter your email address" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="booking-date">Select Date</label>
+                            <input type="date" id="booking-date" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="booking-time">Select Time</label>
+                            <input type="time" id="booking-time" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="consultation-type">Consultation Type</label>
+                        <select id="consultation-type" required>
+                            <option value="" disabled selected>Select Consultation Type</option>
+                            <option value="phone">Phone Call</option>
+                            <option value="video">Video Call</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-block btn-primary mt-4" style="font-size: 1.1rem; padding: 1rem;">Book My Consultation</button>
+                </form>
+            </div>
+            <div id="booking-success" class="hidden text-center">
+                <div class="success-icon"><i class="fas fa-check-circle"></i></div>
+                <h3 style="margin-bottom: 1rem; font-size: 1.8rem; color: var(--dark);">Thank You!</h3>
+                <p style="color: var(--text-muted); font-size: 1.1rem; padding: 0 1rem;">Your consultation request has been submitted successfully. Our solar expert will contact you soon.</p>
+                <button type="button" class="btn btn-primary mt-4 close-modal-btn" style="padding: 0.8rem 2.5rem;">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
